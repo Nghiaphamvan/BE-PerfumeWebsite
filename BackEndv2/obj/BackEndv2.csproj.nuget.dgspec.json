@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\BackEndv2.csproj": {}
+    "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\BackEndv2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\BackEndv2.csproj": {
+    "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\BackEndv2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\BackEndv2.csproj",
+        "projectUniqueName": "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\BackEndv2.csproj",
         "projectName": "BackEndv2",
-        "projectPath": "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\BackEndv2.csproj",
+        "projectPath": "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\BackEndv2.csproj",
         "packagesPath": "C:\\Users\\vietn\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\obj\\",
+        "outputPath": "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vietn\\AppData\\Roaming\\NuGet\\NuGet.Config",

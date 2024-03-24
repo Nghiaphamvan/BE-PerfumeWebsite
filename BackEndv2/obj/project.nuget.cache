@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "okS1DF24re7J6gouW4UK6z6chHMyF/LwIc3VBf2liN8Q4mfNsf1hcdrEn7fydM5/6k5KswR6ZFYZYshH4Y4l7w==",
+  "dgSpecHash": "OlPCc0x8dpo0V7Z+i7c5hvHG7QFC/w9t+5DkBq4TjvUUhEwMwhLmjI5bTLiLvz9XlNnv5akGIf+hOTE7mzGlbQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vietn\\source\\repos\\BackEndv2\\BackEndv2\\BackEndv2.csproj",
+  "projectFilePath": "C:\\Users\\vietn\\OneDrive\\Máy tính\\Angular\\BE-PerfumeWebsite\\BackEndv2\\BackEndv2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vietn\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\vietn\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

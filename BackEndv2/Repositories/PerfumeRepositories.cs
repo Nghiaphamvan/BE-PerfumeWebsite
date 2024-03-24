@@ -47,6 +47,17 @@ namespace BackEndv2.Repositories
             return _mapper.Map<PerfumeDetailModel>(Perfume);
         }
 
+        public async Task<List<PerfumeDetailModel>> GetSomePerfumesModelAsync(int n)
+        {
+            var latestNPerfumes = await _perfumeContext.Perfumes
+                .OrderByDescending(p => p.id) // Sắp xếp theo Id giảm dần để lấy perfume mới nhất
+                .Take(n) // Lấy n perfume đầu tiên
+                .ToListAsync();
+
+            // Ánh xạ danh sách perfume sang danh sách PerfumeDetailModel
+            return _mapper.Map<List<PerfumeDetailModel>>(latestNPerfumes);
+        }
+
         public async Task UpdatePerfumeModelAsync(int id, PerfumeDetailModel model)
         {
             if (id == model.id)
