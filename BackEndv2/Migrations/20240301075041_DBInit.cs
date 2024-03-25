@@ -17,13 +17,11 @@ namespace BackEndv2.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    pice = table.Column<int>(type: "int", nullable: false),
+                    brand = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    type = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    state = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    price = table.Column<int>(type: "int", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: false),
-                    origin = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    url = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

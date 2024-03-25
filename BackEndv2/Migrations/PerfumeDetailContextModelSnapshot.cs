@@ -29,8 +29,9 @@ namespace BackEndv2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
+                    b.Property<string>("brand")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
@@ -39,23 +40,14 @@ namespace BackEndv2.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("origin")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("notes")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("price")
+                    b.Property<int>("pice")
                         .HasColumnType("int");
 
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("state")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("type")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("url")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

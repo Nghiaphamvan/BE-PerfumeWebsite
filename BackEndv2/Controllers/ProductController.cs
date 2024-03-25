@@ -17,6 +17,19 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
+        [HttpGet("GetSomeProduct")]
+        public async Task<IActionResult> GetSomePerfumeModelAsync(int n)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.GetSomePerfumesModelAsync(n));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("getAllPerfumes")]
         public async Task<IActionResult> getAllPerfumesAsync()
         {
