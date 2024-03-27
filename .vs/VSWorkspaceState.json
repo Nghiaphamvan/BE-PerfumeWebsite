@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\BackEndv2",
+    "\\BackEndv2\\Data",
     "\\BackEndv2\\Models"
   ],
-  "SelectedNode": "\\BackEndv2\\Models\\PerfumeDetailModel.cs",
+  "SelectedNode": "\\BackEndv2\\Data\\PerfumeDetail.cs",
   "PreviewInSolutionExplorer": false
 }

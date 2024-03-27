@@ -289,3 +289,7 @@ C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\obj\Debug
 C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\obj\Debug\net8.0\BackEndv2.pdb
 C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\obj\Debug\net8.0\BackEndv2.genruntimeconfig.cache
 C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\obj\Debug\net8.0\ref\BackEndv2.dll
+C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\vietn\OneDrive\Máy tính\Angular\BE-PerfumeWebsite\BackEndv2\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
