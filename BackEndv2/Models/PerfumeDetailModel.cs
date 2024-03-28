@@ -14,5 +14,6 @@ namespace BackEndv2.Models
         public string? description { get; set; }
         public string? notes { get; set; }
         public string? url { get; set; }
+        public int volume { get; set; }
     }
 }

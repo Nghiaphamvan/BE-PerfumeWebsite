@@ -3,8 +3,9 @@
     "",
     "\\BackEndv2",
     "\\BackEndv2\\Data",
-    "\\BackEndv2\\Models"
+    "\\BackEndv2\\Models",
+    "\\BackEndv2\\Repositories"
   ],
-  "SelectedNode": "\\BackEndv2\\Data\\PerfumeDetail.cs",
+  "SelectedNode": "\\BackEndv2\\Repositories\\PerfumeRepositories.cs",
   "PreviewInSolutionExplorer": false
 }

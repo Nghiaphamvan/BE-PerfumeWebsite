@@ -9,6 +9,14 @@ namespace BackEndv2.Data
 
         #region Dbset
         public DbSet<PerfumeDetail> Perfumes { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<PaymentMethod> PaymentMethod { get; set; }
+        public DbSet<ShippingAddress> ShippingAddress { get; set; }
+        public DbSet<Campaign> Campaign { get; set; }
+        public DbSet<Sale> Sale { get; set; }
         #endregion
     }
 }
