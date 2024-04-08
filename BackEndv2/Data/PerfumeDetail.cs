@@ -13,7 +13,7 @@ namespace BackEndv2.Data
         [MaxLength(100)]
         public string? name { get; set; }
         [Range(0, double.MaxValue)]
-        public int pice { get; set; }
+        public int price { get; set; }
         [MaxLength(100)]
         public string? brand { get; set; }
         public string? description { get; set; }
@@ -33,6 +33,7 @@ namespace BackEndv2.Data
         public int categoriID { get; set; }
         [MaxLength(100)]
         public string? name { get; set; }
+        public string? type { get; set; }
     }
 
     [Table("Order")]
@@ -134,7 +135,7 @@ namespace BackEndv2.Data
         [Key]
         public int saleID { get; set; }
         public int id { get; set; }
-        public int percent { get; set; }
+        public int per { get; set; }
 
         [ForeignKey("id")]
         public PerfumeDetail? PerfumeDetails { get; set; }

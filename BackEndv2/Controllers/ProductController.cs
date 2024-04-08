@@ -16,6 +16,57 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
+        [HttpGet("GetPercentSaleByID")]
+        public async Task<IActionResult> getPercentSaleById(int id)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.getPercentSaleAsync(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetProductByCategory")]
+        public async Task<IActionResult> GetProductByCategori(string name)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.getProductByNameAsync(name));
+            } catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetAllCategories")]
+        public async Task<IActionResult> GetAllCategoriesAsynce()
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.getCategoriesAsync());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("GetAllBrands")]
+        public async Task<IActionResult> GetAllBrandsAsynce()
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.getBrandsAsync());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("GetSomeProduct")]
         public async Task<IActionResult> GetSomePerfumeModelAsync(int n)
         {

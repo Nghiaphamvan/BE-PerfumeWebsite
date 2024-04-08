@@ -8,7 +8,7 @@ namespace BackEndv2.Models
         [MaxLength(100)]
         public string? name { get; set; }
         [Range(0, double.MaxValue)]
-        public int pice { get; set; }
+        public int price { get; set; }
         [MaxLength(100)]
         public string? brand { get; set; }
         public string? description { get; set; }

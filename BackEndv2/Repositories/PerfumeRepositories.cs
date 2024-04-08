@@ -2,6 +2,7 @@
 using BackEndv2.Data;
 using BackEndv2.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BackEndv2.Repositories
 {
@@ -41,10 +42,48 @@ namespace BackEndv2.Repositories
             return _mapper.Map<List<PerfumeDetailModel>>(AllPerfumes);
         }
 
+        public async Task<List<string>> getBrandsAsync()
+        {
+            var uniqueBrands = await _perfumeContext.Perfumes.Select(c => c.brand).Distinct().ToListAsync();
+            return uniqueBrands!;
+        }
+
+        public async Task<List<string>> getCategoriesAsync()
+        {
+            // Select: Lay theo name
+            // Distinct: Lay unique
+            // ToListAsync: List Asynce
+            var uniqueCategories = await _perfumeContext.Categories.Select(c => c.type).Distinct().ToListAsync();
+            return uniqueCategories!;
+        }
+
+        public async Task<int> getPercentSaleAsync(int id)
+        {
+            var getpercent = await _perfumeContext.Sale.FindAsync(id);
+            return getpercent.per;
+        }
+
         public async Task<PerfumeDetailModel> GetPerfumeModelAsync(int id)
         {
             var Perfume = await _perfumeContext.Perfumes.FindAsync(id);
             return _mapper.Map<PerfumeDetailModel>(Perfume);
+        }
+
+        public async Task<List<PerfumeDetailModel>> getProductByNameAsync(string category)
+        {
+            /* var productNames = await _perfumeContext.Categories.Where(c => c.name == category).ToListAsync();
+             var allPerfumes = await _perfumeContext.Perfumes.ToListAsync();
+             var perfumesName = allPerfumes.Where(perfume => productNames.Select(pn => pn.name).Contains(perfume.name))
+                 .Select(perfume => perfume.name)
+                 .ToList();
+             return perfumesName!;*/
+            var eCategoriesNames = await _perfumeContext.Categories.Where(c => c.type == category)
+                .Select(b => b.name)
+                .ToListAsync();
+            var PerfumesbyCategori = await _perfumeContext.Perfumes.Where(p => eCategoriesNames.Contains(p.name))
+                .ToListAsync();
+
+            return _mapper.Map<List<PerfumeDetailModel>>(PerfumesbyCategori);
         }
 
         public async Task<List<PerfumeDetailModel>> GetSomePerfumesModelAsync(int n)

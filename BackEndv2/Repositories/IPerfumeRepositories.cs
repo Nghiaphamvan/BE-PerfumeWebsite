@@ -10,5 +10,9 @@ namespace BackEndv2.Repositories
         public Task DeletePerfumeModelAsync(int id, PerfumeDetailModel model);
         public Task UpdatePerfumeModelAsync(int id, PerfumeDetailModel model);
         public Task<List<PerfumeDetailModel>> GetSomePerfumesModelAsync(int id);
+        public Task<List<string>> getCategoriesAsync();
+        public Task<List<PerfumeDetailModel>> getProductByNameAsync(string category);
+        public Task<List<string>> getBrandsAsync();
+        public Task<int> getPercentSaleAsync(int id);
     }
 }

@@ -55,6 +55,9 @@ namespace BackEndv2.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("categoriID");
 
                     b.ToTable("Categories");
@@ -191,7 +194,7 @@ namespace BackEndv2.Migrations
                     b.Property<string>("notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("pice")
+                    b.Property<int>("price")
                         .HasColumnType("int");
 
                     b.Property<string>("url")

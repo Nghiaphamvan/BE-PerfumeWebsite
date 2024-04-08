@@ -17,7 +17,7 @@ namespace BackEndv2.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    pice = table.Column<int>(type: "int", nullable: false),
+                    price = table.Column<int>(type: "int", nullable: false),
                     brand = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -150,7 +150,7 @@ namespace BackEndv2.Migrations
                     saleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     id = table.Column<int>(type: "int", nullable: false),
-                    percent = table.Column<int>(type: "int", nullable: false)
+                    per = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,6 +186,16 @@ namespace BackEndv2.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            migrationBuilder.RenameColumn(
+                name: "pice",
+                table: "PerfumeDetail",
+                newName: "price");
+
+            migrationBuilder.AddColumn<string>(
+                name: "type",
+                table: "Categories",
+                type: "nvarchar(max)",
+                nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "volume",
@@ -242,6 +252,14 @@ namespace BackEndv2.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "type",
+                table: "Categories");
+
+            migrationBuilder.RenameColumn(
+                name: "price",
+                table: "PerfumeDetail",
+                newName: "pice");
             migrationBuilder.DropColumn(
                name: "volume",
                table: "PerfumeDetail");
