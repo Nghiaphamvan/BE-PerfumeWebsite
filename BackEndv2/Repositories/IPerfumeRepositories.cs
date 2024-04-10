@@ -14,5 +14,6 @@ namespace BackEndv2.Repositories
         public Task<List<PerfumeDetailModel>> getProductByNameAsync(string category);
         public Task<List<string>> getBrandsAsync();
         public Task<int> getPercentSaleAsync(int id);
+        public Task<List<PerfumeDetailModel>> getProductSaleAsync();
     }
 }

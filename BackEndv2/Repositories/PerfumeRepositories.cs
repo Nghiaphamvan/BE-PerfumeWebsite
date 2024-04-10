@@ -60,7 +60,7 @@ namespace BackEndv2.Repositories
         public async Task<int> getPercentSaleAsync(int id)
         {
             var getpercent = await _perfumeContext.Sale.FindAsync(id);
-            return getpercent.per;
+            return getpercent!.per;
         }
 
         public async Task<PerfumeDetailModel> GetPerfumeModelAsync(int id)
@@ -71,12 +71,6 @@ namespace BackEndv2.Repositories
 
         public async Task<List<PerfumeDetailModel>> getProductByNameAsync(string category)
         {
-            /* var productNames = await _perfumeContext.Categories.Where(c => c.name == category).ToListAsync();
-             var allPerfumes = await _perfumeContext.Perfumes.ToListAsync();
-             var perfumesName = allPerfumes.Where(perfume => productNames.Select(pn => pn.name).Contains(perfume.name))
-                 .Select(perfume => perfume.name)
-                 .ToList();
-             return perfumesName!;*/
             var eCategoriesNames = await _perfumeContext.Categories.Where(c => c.type == category)
                 .Select(b => b.name)
                 .ToListAsync();
@@ -86,14 +80,27 @@ namespace BackEndv2.Repositories
             return _mapper.Map<List<PerfumeDetailModel>>(PerfumesbyCategori);
         }
 
+        public async Task<List<PerfumeDetailModel>> getProductSaleAsync()
+        {
+            var ProductSale = await _perfumeContext.Perfumes
+                .Join(
+                    _perfumeContext.Sale,
+                    product => product.id,
+                    sale => sale.id,
+                    (product, sale) => new { Product = product, Sale = sale })
+                .Where(joinResult => joinResult.Sale.per != 0)
+                .Select(joinResult => joinResult.Product)
+                .ToListAsync();
+            return _mapper.Map<List<PerfumeDetailModel>>(ProductSale);
+        }
+
         public async Task<List<PerfumeDetailModel>> GetSomePerfumesModelAsync(int n)
         {
             var latestNPerfumes = await _perfumeContext.Perfumes
-                .OrderByDescending(p => p.id) // Sắp xếp theo Id giảm dần để lấy perfume mới nhất
-                .Take(n) // Lấy n perfume đầu tiên
+                .OrderByDescending(p => p.id) 
+                .Take(n) 
                 .ToListAsync();
 
-            // Ánh xạ danh sách perfume sang danh sách PerfumeDetailModel
             return _mapper.Map<List<PerfumeDetailModel>>(latestNPerfumes);
         }
 
