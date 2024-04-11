@@ -186,6 +186,12 @@ namespace BackEndv2.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.RenameColumn(
+                name: "percent",
+                table: "Sale",
+                newName: "per");
+
             migrationBuilder.RenameColumn(
                 name: "pice",
                 table: "PerfumeDetail",
@@ -252,6 +258,11 @@ namespace BackEndv2.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "per",
+                table: "Sale",
+                newName: "percent");
+
             migrationBuilder.DropColumn(
                 name: "type",
                 table: "Categories");

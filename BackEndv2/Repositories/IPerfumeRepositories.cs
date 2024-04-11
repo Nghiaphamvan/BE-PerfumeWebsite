@@ -1,4 +1,5 @@
-﻿using BackEndv2.Models;
+﻿using BackEndv2.Data;
+using BackEndv2.Models;
 
 namespace BackEndv2.Repositories
 {
@@ -15,5 +16,8 @@ namespace BackEndv2.Repositories
         public Task<List<string>> getBrandsAsync();
         public Task<int> getPercentSaleAsync(int id);
         public Task<List<PerfumeDetailModel>> getProductSaleAsync();
+        public Task<bool> AddProductToCart(int customerId, int productId);
+        public Task<Cart> GetCartAsync(int id);
+        public Task DeleteCartAsync(int id, Cart cart);
     }
 }

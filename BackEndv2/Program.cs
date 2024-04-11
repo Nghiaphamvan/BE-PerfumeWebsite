@@ -23,6 +23,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add life cycle DI
 builder.Services.AddScoped<IPerfumeRepositories, PerfumeRepositories>();
+builder.Services.AddScoped<ICustomerRepositories, CustomerRepositories>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());

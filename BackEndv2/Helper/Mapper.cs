@@ -9,6 +9,7 @@ namespace BackEndv2.Helper
        public Mapper()
         {
             CreateMap<PerfumeDetail, PerfumeDetailModel>().ReverseMap();
+            CreateMap<Customer, CustomerModel>().ReverseMap();
         }
     }
 }

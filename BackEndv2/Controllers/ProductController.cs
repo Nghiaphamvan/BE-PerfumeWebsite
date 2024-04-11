@@ -1,4 +1,5 @@
-﻿using BackEndv2.Models;
+﻿using BackEndv2.Data;
+using BackEndv2.Models;
 using BackEndv2.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +11,56 @@ namespace BackEndv2.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IPerfumeRepositories _perfumeRepositories;
-
+       
         public ProductController(IPerfumeRepositories repo)
         {
             _perfumeRepositories = repo;
         }
 
-        [HttpGet("GetProductSale")]
+        [HttpPost("AddProductToCart")]
+        public async Task<IActionResult> addProductToCart(int customerId, int productId)
+        {
+            try
+            {
+                var success = await _perfumeRepositories.AddProductToCart(customerId, productId);
 
+                return success ? Ok() : BadRequest(); // Trả về Ok nếu thêm thành công, BadRequest nếu có lỗi
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần
+                Console.WriteLine(ex.Message);
+                return StatusCode(500); // Trả về status code 500 nếu có lỗi không xác định
+            }
+        }
+
+
+        [HttpGet("getCart")]
+        public async Task<IActionResult> GetCartAsync(int id)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.GetCartAsync(id));
+            } catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("addNewPerfume")]
+        public async Task<IActionResult> AddNewPerfume(PerfumeDetailModel model)
+        {
+            try
+            {
+                var newPerfume = await _perfumeRepositories.AddPerfumeModelAsync(model);
+                var perfumeAdded = await _perfumeRepositories.GetPerfumeModelAsync(newPerfume);
+
+                return perfumeAdded == null ? NotFound() : Ok(perfumeAdded);
+            }
+            catch { return BadRequest(); }
+        }
+
+        [HttpGet("GetProductSale")]
         public async Task<IActionResult> getProductSale()
         {
             try
@@ -107,18 +150,7 @@ namespace BackEndv2.Controllers
             }
         }
 
-        [HttpPost("addNewPerfume")]
-        public async Task<IActionResult> AddNewPerfume(PerfumeDetailModel model)
-        {
-            try
-            {
-                var newPerfume = await _perfumeRepositories.AddPerfumeModelAsync(model);
-                var perfumeAdded = await _perfumeRepositories.GetPerfumeModelAsync(newPerfume);
-
-                return perfumeAdded == null ? NotFound() : Ok(perfumeAdded);
-            }
-            catch { return BadRequest(); }
-        }
+        
         [HttpGet("getPerfumeby{id}")]
         public async Task<IActionResult> GetPerfumeByID(int id)
         {

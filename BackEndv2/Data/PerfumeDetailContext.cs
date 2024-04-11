@@ -17,6 +17,7 @@ namespace BackEndv2.Data
         public DbSet<ShippingAddress> ShippingAddress { get; set; }
         public DbSet<Campaign> Campaign { get; set; }
         public DbSet<Sale> Sale { get; set; }
+        public DbSet<Cart> Cart { get; set; }
         #endregion
     }
 }

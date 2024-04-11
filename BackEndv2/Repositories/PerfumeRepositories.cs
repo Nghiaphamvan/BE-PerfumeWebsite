@@ -2,6 +2,8 @@
 using BackEndv2.Data;
 using BackEndv2.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace BackEndv2.Repositories
@@ -17,6 +19,16 @@ namespace BackEndv2.Repositories
             _perfumeContext = context;
         }
 
+        public async Task DeleteCartAsync(int id, Cart cart)
+        {
+            var deleteCart = _perfumeContext.Cart!.SingleOrDefault(b => b.CartID == id);
+            if (deleteCart != null)
+            {
+                _perfumeContext.Cart.Remove(deleteCart);
+                await _perfumeContext.SaveChangesAsync();
+            }
+        }
+
         public async Task<int> AddPerfumeModelAsync(PerfumeDetailModel model)
         {
             var newPerfume = _mapper.Map<PerfumeDetail>(model);
@@ -24,6 +36,32 @@ namespace BackEndv2.Repositories
             await _perfumeContext.SaveChangesAsync();
             return newPerfume.id;
         }
+
+        public async Task<bool> AddProductToCart(int customerId, int productId)
+        {
+            try
+            {
+                var newCart = new Cart
+                {
+                    CustomerID = customerId,
+                    PerfumeDetailID = productId,
+                    Quantity = 1,
+                    CreatedAt = DateTime.Now,
+                };
+                _perfumeContext.Cart.Add(newCart);
+                await _perfumeContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+
+        
 
         public async Task DeletePerfumeModelAsync(int id, PerfumeDetailModel model)
         {
@@ -46,6 +84,12 @@ namespace BackEndv2.Repositories
         {
             var uniqueBrands = await _perfumeContext.Perfumes.Select(c => c.brand).Distinct().ToListAsync();
             return uniqueBrands!;
+        }
+
+        public async Task<Cart> GetCartAsync(int id)
+        {
+            var cart = await _perfumeContext.Cart.FindAsync(id);
+            return cart!;
         }
 
         public async Task<List<string>> getCategoriesAsync()

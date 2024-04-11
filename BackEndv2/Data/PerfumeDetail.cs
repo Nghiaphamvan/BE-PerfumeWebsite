@@ -140,4 +140,18 @@ namespace BackEndv2.Data
         [ForeignKey("id")]
         public PerfumeDetail? PerfumeDetails { get; set; }
     }
+
+
+    [Table("Cart")]
+    public class Cart
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CartID { get; set; }
+        public int PerfumeDetailID { get; set; }
+        public int CustomerID { get; set; }
+        [Range(0, int.MaxValue)]
+        public int Quantity { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
 }
