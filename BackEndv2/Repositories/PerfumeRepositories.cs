@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace BackEndv2.Repositories
 {
@@ -19,7 +21,15 @@ namespace BackEndv2.Repositories
             _perfumeContext = context;
         }
 
-        public async Task DeleteCartAsync(int id, Cart cart)
+
+        public async Task<List<Cart>> GetCartsByCustomerIDAsync(int CustomerId)
+        {
+            var carts = await _perfumeContext.Cart
+                .Where(a => a.CustomerID == CustomerId)
+                .ToListAsync();
+            return carts;
+        }
+        public async Task DeleteCartAsync(int id)
         {
             var deleteCart = _perfumeContext.Cart!.SingleOrDefault(b => b.CartID == id);
             if (deleteCart != null)
@@ -37,17 +47,28 @@ namespace BackEndv2.Repositories
             return newPerfume.id;
         }
 
-        public async Task<bool> AddProductToCart(int customerId, int productId)
+     
+        public async Task<bool> AddProductToCart(CartModel model)
         {
             try
             {
+                var ExistProductInCart = await _perfumeContext.Cart
+                    .FirstOrDefaultAsync(c => c.PerfumeDetailID == model.ProductID && c.CustomerID == model.CustomerID);
+                
+                if(ExistProductInCart != null)
+                {
+                    await UpdateCartAsync(model.ProductID, "plus");
+                    return true;
+                }
+
                 var newCart = new Cart
                 {
-                    CustomerID = customerId,
-                    PerfumeDetailID = productId,
+                    CustomerID = model.CustomerID,
+                    PerfumeDetailID = model.ProductID,
                     Quantity = 1,
                     CreatedAt = DateTime.Now,
                 };
+
                 _perfumeContext.Cart.Add(newCart);
                 await _perfumeContext.SaveChangesAsync();
 
@@ -150,13 +171,69 @@ namespace BackEndv2.Repositories
 
         public async Task UpdatePerfumeModelAsync(int id, PerfumeDetailModel model)
         {
-            if (id == model.id)
+            var existingPerfume = await _perfumeContext.Perfumes.FindAsync(id);
+
+            if (existingPerfume != null)
+            {
+                _mapper.Map(model, existingPerfume); 
+                await _perfumeContext.SaveChangesAsync();
+            }
+            /*if (id == model.id)
             {
                 var updatePerfume = _mapper.Map<PerfumeDetail>(model);
                 _perfumeContext.Perfumes.Update(updatePerfume);
 
                 await _perfumeContext.SaveChangesAsync();
+            }*/
+        }
+        
+        public async Task<Boolean> UpdateCartAsyncbyAmount(int id, int amount)
+        {
+            var cart = await _perfumeContext.Cart.FirstOrDefaultAsync(c => c.PerfumeDetailID == id);
+            
+            if (cart != null && amount >= 0)
+            {
+                if (amount == 0)
+                {
+                    _perfumeContext.Cart.Remove(cart);
+                }
+                else
+                {
+                    cart.Quantity = amount;
+                    await _perfumeContext.SaveChangesAsync();
+                }
+                return true;
             }
+            return false;
+        }
+        public async Task<Boolean> UpdateCartAsync(int id, string response)
+        {
+            var cart = await _perfumeContext.Cart.FirstOrDefaultAsync(c => c.PerfumeDetailID == id);
+
+            if( cart != null)
+            {
+                if (response == "plus") {
+                    cart.Quantity = cart.Quantity + 1;
+                    await _perfumeContext.SaveChangesAsync();
+                    return true;
+                } else if (response == "minus")
+                {
+                    if(cart.Quantity == 1)
+                    {
+                        _perfumeContext.Cart.Remove(cart);
+                        await _perfumeContext.SaveChangesAsync();
+                    }
+                    else if (cart.Quantity > 0)
+                    {
+                        cart.Quantity = cart.Quantity - 1;
+                        await _perfumeContext.SaveChangesAsync();
+                        
+                    }
+                    return true;
+                }
+                    
+            }
+            return false;
         }
     }
 }

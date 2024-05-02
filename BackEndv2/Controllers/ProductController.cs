@@ -17,12 +17,37 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
-        [HttpPost("AddProductToCart")]
-        public async Task<IActionResult> addProductToCart(int customerId, int productId)
+        [HttpGet("GetCartsByCustomerID")]
+        public async Task<IActionResult> getCartsByCustomerID(int customerID)
         {
             try
             {
-                var success = await _perfumeRepositories.AddProductToCart(customerId, productId);
+                return Ok(await _perfumeRepositories.GetCartsByCustomerIDAsync(customerID));
+            } catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("DeleteCartAsync")]
+        public async Task<IActionResult> DeleteCartAsync(int id)
+        {
+            try
+            {
+                await _perfumeRepositories.DeleteCartAsync(id);
+                return Ok();
+            } catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("AddProductToCart")]
+        public async Task<IActionResult> addProductToCart(CartModel model)
+        {
+            try
+            {
+                var success = await _perfumeRepositories.AddProductToCart(model);
 
                 return success ? Ok() : BadRequest(); // Trả về Ok nếu thêm thành công, BadRequest nếu có lỗi
             }
@@ -40,7 +65,8 @@ namespace BackEndv2.Controllers
         {
             try
             {
-                return Ok(await _perfumeRepositories.GetCartAsync(id));
+                var cart = await _perfumeRepositories.GetCartAsync(id);
+                return cart == null ? NotFound() : Ok(cart);
             } catch
             {
                 return BadRequest();
@@ -162,6 +188,30 @@ namespace BackEndv2.Controllers
             catch { return BadRequest(); }
         }
 
+        [HttpPut("UpdateCart")]
+        public async Task<IActionResult> UpdateCart(int id, string response)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.UpdateCartAsync(id, response));
+            } catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut("UpdateCartByAmount")]
+        public async Task<IActionResult> UpdateCartAmount(int id, int amount)
+        {
+            try
+            {
+                return Ok(await _perfumeRepositories.UpdateCartAsyncbyAmount(id, amount));
+            } catch
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPut("updatePerfume")]
         public async Task<IActionResult> UpdatePerfume(int id, PerfumeDetailModel model)
         {
@@ -187,6 +237,19 @@ namespace BackEndv2.Controllers
             }
 
             catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpDelete("DeleteCart")]
+        public async Task<IActionResult> DeleteCart(int id)
+        {
+            try
+            {
+                await _perfumeRepositories.DeleteCartAsync(id);
+                return Ok();
+            } catch
             {
                 return NotFound();
             }

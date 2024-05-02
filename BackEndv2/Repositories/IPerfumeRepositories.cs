@@ -16,8 +16,11 @@ namespace BackEndv2.Repositories
         public Task<List<string>> getBrandsAsync();
         public Task<int> getPercentSaleAsync(int id);
         public Task<List<PerfumeDetailModel>> getProductSaleAsync();
-        public Task<bool> AddProductToCart(int customerId, int productId);
+        public Task<bool> AddProductToCart(CartModel model);
         public Task<Cart> GetCartAsync(int id);
-        public Task DeleteCartAsync(int id, Cart cart);
+        public Task<List<Cart>> GetCartsByCustomerIDAsync(int CustomerId);
+        public Task DeleteCartAsync(int id);
+        public Task<Boolean> UpdateCartAsync(int id, string response);
+        public Task<Boolean> UpdateCartAsyncbyAmount(int id, int amount);
     }
 }
