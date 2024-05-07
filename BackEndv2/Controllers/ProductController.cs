@@ -1,6 +1,8 @@
 ﻿using BackEndv2.Data;
+using BackEndv2.Helper;
 using BackEndv2.Models;
 using BackEndv2.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEndv2.Controllers
@@ -17,7 +19,7 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
-        [HttpGet("GetCartsByCustomerID")]
+        [HttpGet("GetCartsByCustomerID")]   
         public async Task<IActionResult> getCartsByCustomerID(int customerID)
         {
             try
