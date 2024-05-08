@@ -9,7 +9,7 @@ namespace BackEndv2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IPerfumeRepositories _perfumeRepositories;
@@ -63,6 +63,7 @@ namespace BackEndv2.Controllers
 
 
         [HttpGet("getCart")]
+        [Authorize(Roles = "customer")]
         public async Task<IActionResult> GetCartAsync(int id)
         {
             try

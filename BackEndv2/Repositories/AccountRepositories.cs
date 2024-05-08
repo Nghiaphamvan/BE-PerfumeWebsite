@@ -44,6 +44,7 @@ namespace BackEndv2.Repositories
             };
 
             var userRoles = await _userManager.GetRolesAsync(user);
+
             foreach (var role in userRoles)
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, role.ToString()));
@@ -91,9 +92,10 @@ namespace BackEndv2.Repositories
         {
             try
             {
-                var checkformat = new MailAddress(email);
+                var checkformat = new MailAddress(email); 
+
                 var result = await _userManager.FindByEmailAsync(email);
-                return result != null;
+                return result == null;
             } catch
             {
                 return false;

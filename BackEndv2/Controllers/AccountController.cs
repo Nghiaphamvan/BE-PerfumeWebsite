@@ -31,11 +31,14 @@ namespace BackEndv2.Controllers
         [HttpGet("checkEmail")]
         public async Task<IActionResult> CheckEmail(string email)
         {
-            var result = await accountRepo.CheckEmailASync(email);
-            if(result)
+            try
             {
-                return Ok(true);
-            } else return Ok(false); 
+                var result = await accountRepo.CheckEmailASync(email);
+                return Ok(result);
+            } catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost("SignIn")]
@@ -43,11 +46,14 @@ namespace BackEndv2.Controllers
         {
             var result = await accountRepo.SignInModelAsync(model);
 
+            var jsonresult = new JsonResult(result);
             if(string.IsNullOrEmpty(result)) {
-                return Unauthorized();
+                jsonresult.StatusCode = 400;
+                return Ok(jsonresult);
             }
-                
-            return Ok(result);
+
+            jsonresult.StatusCode = 200;
+            return Ok(jsonresult);
         }
 
     }
