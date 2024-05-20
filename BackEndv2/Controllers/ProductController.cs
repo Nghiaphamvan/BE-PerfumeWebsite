@@ -19,6 +19,12 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
+        [HttpGet("ValidToken")]
+        public async Task<bool> ValidToken()
+        {
+            return true;
+        }
+
         [HttpGet("GetCartsByCustomerID")]   
         public async Task<IActionResult> getCartsByCustomerID(int customerID)
         {
@@ -61,9 +67,7 @@ namespace BackEndv2.Controllers
             }
         }
 
-
         [HttpGet("getCart")]
-        [Authorize(Roles = "customer")]
         public async Task<IActionResult> GetCartAsync(int id)
         {
             try
@@ -128,6 +132,7 @@ namespace BackEndv2.Controllers
         }
 
         [HttpGet("GetAllCategories")]
+
         public async Task<IActionResult> GetAllCategoriesAsynce()
         {
             try
@@ -192,6 +197,7 @@ namespace BackEndv2.Controllers
         }
 
         [HttpPut("UpdateCart")]
+        
         public async Task<IActionResult> UpdateCart(int id, string response)
         {
             try

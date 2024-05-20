@@ -5,8 +5,7 @@ namespace BackEndv2.Repositories
 {
     public interface ICustomerRepositories
     {
-        public Task<CustomerModel> getCustomerAsync(int id);
-        public Task<List<Cart>> getAllCartByCustomer(int CustomerID);
-
+        public Task<CustomerModel> NousegetCustomerAsync(int id);
+        public Task<List<Cart>> NousegetAllCartByCustomer(int CustomerID);
     }
 }

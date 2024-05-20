@@ -16,32 +16,34 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
-    c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
+builder.Services.AddSwaggerGen(
+    option =>
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "basic",
-        In = ParameterLocation.Header,
-        Description = "Basic Authorization header."
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        option.SwaggerDoc("v1", new OpenApiInfo { Title = "Book API", Version = "v1" });
+        option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter a valid token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            BearerFormat = "JWT",
+            Scheme = "Bearer"
+        });
+        option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "basic"
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
                 }
             },
-            new string[] {}
+            new string[]{}
         }
     });
-});
+    });
 
 // Add API for everyone to use
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
@@ -51,7 +53,10 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<PerfumeDetailContext>().AddDefaultTokenProviders();
 
 // Add Database
-builder.Services.AddDbContext<PerfumeDetailContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseProduct")));
+builder.Services.AddDbContext<PerfumeDetailContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseProduct"));
+});
+
 
 // Add Mapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -60,7 +65,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPerfumeRepositories, PerfumeRepositories>();
 builder.Services.AddScoped<ICustomerRepositories, CustomerRepositories>();
 builder.Services.AddScoped<IAccountRepositories, AccountRepositories>();
-    
+
 
 // wrong here
 builder.Services.AddAuthentication(options =>
@@ -77,9 +82,9 @@ builder.Services.AddAuthentication(options =>
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidAudience = builder.Configuration["JWT: ValidAudience"],
-            ValidIssuer = builder.Configuration["JWT: ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JWT: Secret"))
+            ValidAudience = builder.Configuration["JWT:ValidAudience"],
+            ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
         };
     }
     );

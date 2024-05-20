@@ -1,6 +1,7 @@
 ﻿using BackEndv2.Data;
 using BackEndv2.Helper;
 using BackEndv2.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -57,7 +58,7 @@ namespace BackEndv2.Repositories
                 audience: configuration["JWT:ValidAudience"],
                 expires: DateTime.Now.AddMinutes(20),
                 claims: authClaims,
-                signingCredentials: new SigningCredentials(authenKey, SecurityAlgorithms.HmacSha512Signature)
+                signingCredentials: new SigningCredentials(authenKey, SecurityAlgorithms.HmacSha256Signature)
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -100,6 +101,29 @@ namespace BackEndv2.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<IdentityUser> GetDetailCustomerByEmail(string id)
+        {
+            var result = await _userManager.FindByEmailAsync(id);
+            return result;
+        }
+
+        public async Task<IdentityResult> UpdateCustomerByEmail(string email, IdentityUser updatedUser)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+            }
+
+            // Update user properties here
+            user.UserName = updatedUser.UserName;
+            user.PhoneNumber = updatedUser.PhoneNumber;
+            // Other properties...
+
+            var result = await _userManager.UpdateAsync(user);
+            return result;
         }
     }
 }

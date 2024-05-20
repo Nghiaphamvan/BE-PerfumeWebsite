@@ -1,5 +1,6 @@
 ﻿using BackEndv2.Models;
 using BackEndv2.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,6 +17,21 @@ namespace BackEndv2.Controllers
             this.accountRepo = accountRepo;
         }
 
+        [Authorize]
+        [HttpGet("GetDetailCustomerByEmail")]
+        public async Task<IActionResult> getDetailCustomerByEmail(string email)
+        {
+            try
+            {
+                var result = await accountRepo.GetDetailCustomerByEmail(email);
+                return Ok(result);
+            } catch
+            {
+                return BadRequest();
+            }
+        }
+
+        
         [HttpPost("SignUp")]
         public async Task<IActionResult> SignUp(SignUpModel model)
         {
