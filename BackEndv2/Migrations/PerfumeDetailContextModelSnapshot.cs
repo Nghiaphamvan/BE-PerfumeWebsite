@@ -54,8 +54,9 @@ namespace BackEndv2.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PerfumeDetailID")
                         .HasColumnType("int");
@@ -66,6 +67,32 @@ namespace BackEndv2.Migrations
                     b.HasKey("CartID");
 
                     b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("BackEndv2.Data.CartDTO", b =>
+                {
+                    b.Property<int>("CartID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartID"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PerfumeDetailID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartID");
+
+                    b.ToTable("CartDTO");
                 });
 
             modelBuilder.Entity("BackEndv2.Data.Categories", b =>

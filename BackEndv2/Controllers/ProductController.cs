@@ -19,24 +19,27 @@ namespace BackEndv2.Controllers
             _perfumeRepositories = repo;
         }
 
+        [HttpGet("getAllCartsByEmail")]
+        public async Task<IActionResult> getAllCartsByEmail(string email)
+        {
+            try
+            {
+                var result = _perfumeRepositories.getAllCartsByEmail(email);
+                return Ok(result.Result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("ValidToken")]
         public async Task<bool> ValidToken()
         {
             return true;
         }
 
-        [HttpGet("GetCartsByCustomerID")]   
-        public async Task<IActionResult> getCartsByCustomerID(int customerID)
-        {
-            try
-            {
-                return Ok(await _perfumeRepositories.GetCartsByCustomerIDAsync(customerID));
-            } catch
-            {
-                return BadRequest();
-            }
-        }
-
+       
         [HttpDelete("DeleteCartAsync")]
         public async Task<IActionResult> DeleteCartAsync(int id)
         {
@@ -57,13 +60,13 @@ namespace BackEndv2.Controllers
             {
                 var success = await _perfumeRepositories.AddProductToCart(model);
 
-                return success ? Ok() : BadRequest(); // Trả về Ok nếu thêm thành công, BadRequest nếu có lỗi
+                return success ? Ok() : BadRequest(); 
             }
             catch (Exception ex)
             {
                 // Log lỗi nếu cần
                 Console.WriteLine(ex.Message);
-                return StatusCode(500); // Trả về status code 500 nếu có lỗi không xác định
+                return StatusCode(500);
             }
         }
 

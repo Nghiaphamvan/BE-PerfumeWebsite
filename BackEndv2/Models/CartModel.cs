@@ -2,7 +2,7 @@
 {
     public class CartModel
     {
-        public int CustomerID { get; set; }
         public int ProductID { get; set; }
+        public string Email { get; set; }
     }
 }

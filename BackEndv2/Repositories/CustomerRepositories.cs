@@ -26,17 +26,14 @@ namespace BackEndv2.Repositories
             this.roleManager = roleManager;
         }
 
-        public async Task<List<Cart>> NousegetAllCartByCustomer(int CustomerID)
+        public async Task<List<Cart>> NousegetAllCartByCustomer(string email)
         {
-            var AllCart = await _perfumeContext.Cart.Where(a => a.CustomerID == CustomerID).ToListAsync();
-            return AllCart;
+            throw new NotImplementedException();
         }
 
-        public async Task<CustomerModel> NousegetCustomerAsync(int id)
+        public Task<CustomerModel> NousegetCustomerAsync(int id)
         {
-            var getCustomer = await _perfumeContext.Customer.FindAsync(id);
-
-            return _mapper!.Map<CustomerModel>(getCustomer);
+            throw new NotImplementedException();
         }
     }
 }

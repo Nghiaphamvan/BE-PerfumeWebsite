@@ -19,6 +19,7 @@ namespace BackEndv2.Data
         public DbSet<Campaign> Campaign { get; set; }
         public DbSet<Sale> Sale { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartDTO> CartDTO { get; set; }
         #endregion
     }
 }

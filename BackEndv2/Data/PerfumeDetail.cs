@@ -149,9 +149,22 @@ namespace BackEndv2.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CartID { get; set; }
         public int PerfumeDetailID { get; set; }
-        public int CustomerID { get; set; }
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string Email { get; set; }
     }
+
+    [Table("CartDTO")]
+    public class CartDTO
+    {
+        [Key]
+        public int CartID { get; set; }
+        public int PerfumeDetailID { get; set; }
+        [Range(0, int.MaxValue)]
+        public int Quantity { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string Email { get; set; }
+    }
+
 }

@@ -89,8 +89,17 @@ builder.Services.AddAuthentication(options =>
     }
     );
 
-// end
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Error = (sender, args) =>
+        {
+            args.ErrorContext.Handled = true;
+        };
+    });
 
+
+// end
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 

@@ -21,14 +21,6 @@ namespace BackEndv2.Repositories
             _perfumeContext = context;
         }
 
-
-        public async Task<List<Cart>> GetCartsByCustomerIDAsync(int CustomerId)
-        {
-            var carts = await _perfumeContext.Cart
-                .Where(a => a.CustomerID == CustomerId)
-                .ToListAsync();
-            return carts;
-        }
         public async Task DeleteCartAsync(int id)
         {
             var deleteCart = _perfumeContext.Cart!.SingleOrDefault(b => b.CartID == id);
@@ -53,7 +45,7 @@ namespace BackEndv2.Repositories
             try
             {
                 var ExistProductInCart = await _perfumeContext.Cart
-                    .FirstOrDefaultAsync(c => c.PerfumeDetailID == model.ProductID && c.CustomerID == model.CustomerID);
+                    .FirstOrDefaultAsync(c => c.PerfumeDetailID == model.ProductID && c.Email == model.Email);
                 
                 if(ExistProductInCart != null)
                 {
@@ -63,7 +55,7 @@ namespace BackEndv2.Repositories
 
                 var newCart = new Cart
                 {
-                    CustomerID = model.CustomerID,
+                    Email = model.Email,
                     PerfumeDetailID = model.ProductID,
                     Quantity = 1,
                     CreatedAt = DateTime.Now,
@@ -234,6 +226,20 @@ namespace BackEndv2.Repositories
                     
             }
             return false;
+        }
+
+        public async Task<List<Cart>> getAllCartsByEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("Email cannot be null or empty.", nameof(email));
+            }
+
+            var result = await _perfumeContext.Cart
+                .Where(cart => cart.Email == email)
+                .ToListAsync();
+
+            return result;
         }
     }
 }
